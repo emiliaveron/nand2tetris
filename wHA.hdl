@@ -1,0 +1,7 @@
+CHIP wHA {
+IN a,b;
+OUT s,c;
+PARTS:
+Xor(a=a, b=b, out=s);
+And(a=a, b=b, out=c);
+}
