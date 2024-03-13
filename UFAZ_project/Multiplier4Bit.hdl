@@ -1,0 +1,17 @@
+/*This is a 4bit multiplier giving a 8bit value out.
+Inputs are 4 bit, output is 8 bit*/
+
+CHIP Multiplier4Bit {
+    IN a[4], b[4];  
+    OUT out[8];   
+
+    PARTS:
+    Mux2Way8(b[0..3] = a, b[4..7] = false, a = false, sel = b[0], out=m1);
+    Mux2Way8(b[1..4] = a, b[0] = false, b[5..7] = false, a = false, sel = b[1], out=m2);
+    Mux2Way8(b[2..5] = a, b[0..1] = false, b[6..7] = false, a = false, sel = b[2], out=m3);
+    Mux2Way8(b[3..6] = a, b[7] = false, b[0..2] = false, a = false, sel = b[3], out=m4);
+    
+    Add8(a=m1, b=m2, out=m5);
+    Add8(a=m5, b=m3, out=m6);
+    Add8(a=m6, b=m4, out=out);
+}

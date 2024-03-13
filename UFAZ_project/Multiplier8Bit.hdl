@@ -1,0 +1,25 @@
+/*This is an 8bit multiplier giving a 16bit value out.
+Inputs are 8 bit, output is 16 bit*/
+
+CHIP Multiplier8Bit {
+    IN a[8], b[8];  
+    OUT out[16];   
+
+    PARTS:
+    Mux16(b[0..7] = a, b[8..15] = false, a = false, sel = b[0], out=m1);
+    Mux16(b[1..8] = a, b[9..15] = false, b[0] = false, a = false, sel = b[1], out=m2);
+    Mux16(b[2..9] = a, b[10..15] = false, b[0..1] = false, a = false, sel = b[2], out=m3);
+    Mux16(b[3..10] = a, b[11..15] = false, b[0..2] = false, a = false, sel = b[3], out=m4);
+    Mux16(b[4..11] = a, b[12..15] = false, b[0..3] = false, a = false, sel = b[4], out=m5);
+    Mux16(b[5..12] = a, b[13..15] = false, b[0..4] = false, a = false, sel = b[5], out=m6);
+    Mux16(b[6..13] = a, b[14..15] = false, b[0..5] = false, a = false, sel = b[6], out=m7);
+    Mux16(b[7..14] = a, b[15..15] = false, b[0..6] = false, a = false, sel = b[7], out=m8);
+    
+    Add16(a=m1, b=m2, out=sum1);
+    Add16(a=sum1, b=m3, out=sum2);
+    Add16(a=sum2, b=m4, out=sum3);
+    Add16(a=sum3, b=m5, out=sum4);
+    Add16(a=sum4, b=m6, out=sum5);
+    Add16(a=sum5, b=m7, out=sum6);
+    Add16(a=sum6, b=m8, out=out);
+}
